@@ -59,14 +59,14 @@ public class magicBallAnimation extends Animation{
 		final Matrix matrix = t.getMatrix();
 		camera.save();
 		camera.translate(0.0f, 0.0f, (2600 - 2600.0f * interpolatedTime));
-		camera.rotate(INFINITE, INFINITE, INFINITE);
-		//camera.rotate(360 * interpolatedTime, 360 * interpolatedTime, 360 * interpolatedTime);
+		//camera.rotate(INFINITE, INFINITE, INFINITE);
+		camera.rotate(360 * interpolatedTime, 360 * interpolatedTime, 360 * interpolatedTime);
 		Log.d(TAG, "THREE: Reached apply to camera: Infinite rotation/XYZ rotation? " );
 		camera.getMatrix(matrix);
 		
 		
 		matrix.preTranslate((3*centerX)/4, centerY);
-		matrix.postTranslate(centerX, centerY);		
+		matrix.postTranslate(centerX, centerY-25);		
 		camera.restore();
 		
 	}

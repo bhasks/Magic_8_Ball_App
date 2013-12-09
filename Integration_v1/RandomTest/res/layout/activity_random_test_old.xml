@@ -20,8 +20,8 @@
             android:id="@+id/answerImageView"
             android:layout_width="@dimen/image_width"
             android:layout_height="@dimen/image_height"
-            android:layout_centerInParent="true"
-   
+            android:layout_marginTop="205dp"
+            android:layout_marginLeft="127dp"
             android:src="@drawable/one" />
 
         <Button
