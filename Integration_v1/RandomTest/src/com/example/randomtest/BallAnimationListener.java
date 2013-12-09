@@ -11,8 +11,7 @@ public class BallAnimationListener implements Animation.AnimationListener{
 	public BallAnimationListener(){
 		isAnimationStarted = false;
 		isAnimationRunning = false;
-		isAnimationEnded = true;
-	
+		isAnimationEnded = true;	
 	}
 	
 	public boolean getIsAnimationStarted()
@@ -41,7 +40,7 @@ public class BallAnimationListener implements Animation.AnimationListener{
 	
 	public void onAnimationRepeat(Animation animation)
 	{
-		//do nothing -needed to implent this interface
+		//do nothing -needed to implemennt this interface
 	}
 	
 	
@@ -51,9 +50,9 @@ public class BallAnimationListener implements Animation.AnimationListener{
 		isAnimationStarted = false;
 		isAnimationRunning = false;
 		isAnimationEnded = true;
+		//Initialize activity to get at its method
 		RandomTestActivity ra = new RandomTestActivity();
-		ra.resetMagic8Ball();
-		
+		ra.resetMagic8Ball();		
 	}	
 
 }

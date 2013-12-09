@@ -99,11 +99,8 @@ public class RandomTestActivity extends Activity {
 			String no = "NO";
 			Toast.makeText(getApplicationContext(), 
 					"Is there accelerometer on device?: " + no, 
-					Toast.LENGTH_SHORT).show();		
-			
-		}
-
-		
+					Toast.LENGTH_SHORT).show();					
+		}	
 	}
 	
 	public OnClickListener answerButtonListener = new OnClickListener()
@@ -123,12 +120,20 @@ public class RandomTestActivity extends Activity {
 	
 	public void resetOracleViewPort()
 	{
-		//relativeLayout = (RelativeLayout)this.findViewById(R.id.relativeLayout);
-		Resources res = getResources(); //resource handle
-		//Need to change this from the 8 ball to the blue side
+		try
+		{
+			//relativeLayout = (RelativeLayout)this.findViewById(R.id.relativeLayout);
+			Resources res = getResources(); //resource handle
+			//Need to change this from the 8 ball to the blue side
 
-		Drawable drawable = res.getDrawable(R.drawable.hdpi_template_1); 
-		relativeLayout.setBackground(drawable);		
+			Drawable drawable = res.getDrawable(R.drawable.hdpi_template_1); 
+			relativeLayout.setBackground(drawable);	
+		}
+		catch(Exception e)
+		{
+			Log.e(TAG, "Error retrieving resource", e);
+			
+		}		
 	}
 	
 	
@@ -137,13 +142,20 @@ public class RandomTestActivity extends Activity {
 		@Override
 		public void onClick(View v)
 		{
+			try
+			{
 			//relativeLayout = (RelativeLayout)this.findViewById(R.id.relativeLayout);
 			Resources res = getResources(); //resource handle
 			//Need to change this to the start template image
 
 			Drawable drawable = res.getDrawable(R.drawable.hdpi_template_1); 
 			relativeLayout.setBackground(drawable);
-			
+			}
+			catch(Exception e)
+			{
+				Log.e(TAG, "Error retrieving resource", e);
+				
+			}			
 		}
 	};
 	
@@ -167,7 +179,7 @@ public class RandomTestActivity extends Activity {
 		{
 			if(hasAccelerometer)
 			{
-			Toast.makeText(getApplicationContext(), 
+				Toast.makeText(getApplicationContext(), 
 					"Shake your phone or tablet\n or else touch the answer button to see into your future!.",
 					Toast.LENGTH_LONG).show();
 			}
@@ -196,16 +208,26 @@ public class RandomTestActivity extends Activity {
 		boolean isAnimationRunning = listener.getIsAnimationRunning();
 	   if(!isAnimationRunning)
 		{
-		ImageView iv = (ImageView)this.findViewById(R.id.answerImageView);
-		//Set the image depending on the answer
-		Resources res = getResources(); //resource handle
+		   
+			   ImageView iv = (ImageView)this.findViewById(R.id.answerImageView);
+			 //To prevent race conditions from crashing the app
+			   try
+			   {
+			   //Set the image depending on the answer
+			   Resources res = getResources(); //resource handle
 		
-		int resid = res.getIdentifier("answer" + Integer.toString(oracle), "drawable", getPackageName() );
-		Drawable drawable = res.getDrawable( resid );
-		Toast.makeText(getApplicationContext(), 
+			   int resid = res.getIdentifier("answer" + Integer.toString(oracle), "drawable", getPackageName() );
+			   Drawable drawable = res.getDrawable( resid );
+			   Toast.makeText(getApplicationContext(), 
 				"Image Resource Id is" + resid,
 				Toast.LENGTH_SHORT).show();	
-		iv.setImageDrawable(drawable); 
+			   iv.setImageDrawable(drawable);
+		   }
+		   catch(Exception e)
+		   {
+			 Log.e(TAG, "Error retrieving resouce " + e);  
+		   }
+		   
 		iv.setVisibility(View.VISIBLE);
 		Toast.makeText(getApplicationContext(), 
 				"Image loaded. Can you see it?",
@@ -226,10 +248,7 @@ public class RandomTestActivity extends Activity {
 	}
 	
 	public void resetMagic8Ball()
-	{
-		//Resources res = getResources(); //resource handle
-		//Drawable drawable = res.getDrawable(R.drawable.hdpi_template_1); 
-		//relativeLayout.setBackground(drawable);	
+	{	
 		resetOracleViewPort();
 	}
 	
@@ -262,8 +281,7 @@ public class RandomTestActivity extends Activity {
 			mSensorManager.unregisterListener(sensorEventListener,
 					
 				mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-		}
-							
+		}							
 	}
 	
 	private SensorEventListener sensorEventListener = new SensorEventListener()
